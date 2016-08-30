@@ -7,7 +7,6 @@ SOURCES += main.cpp \
     category.cpp \
     message.cpp \
     categorymodel.cpp \
-    walletmodel.cpp \
     purchase.cpp \
     purchasemodel.cpp
 
@@ -23,6 +22,5 @@ HEADERS += \
     category.h \
     message.h \
     categorymodel.h \
-    walletmodel.h \
     purchase.h \
     purchasemodel.h

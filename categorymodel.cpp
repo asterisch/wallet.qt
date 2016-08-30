@@ -2,12 +2,16 @@
 
 
 CategoryModel::CategoryModel(QObject *parent){
+
+    Category a("clothes","images/clothes.png");
+    myData.push_back(a);
+
 }
 
 QHash<int, QByteArray> CategoryModel::roleNames() const{
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
-    roles[imgPathRole] = "catImg";
+    roles[imgPathRole] = "imgPath";
     return roles;
 }
 

@@ -56,11 +56,12 @@ Rectangle{
                 anchors.fill: parent
                 anchors.margins: 1
             }
-            //onClicked:{
-
-              //  gridView1.append({});
-                //stack.pop();
-            //}
+            onClicked:{
+                console.log("--------------------------")
+                console.log(msg.categ)
+                console.log(msg.temp)
+                stack.pop();
+            }
 
         }
     }

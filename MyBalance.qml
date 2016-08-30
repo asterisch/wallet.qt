@@ -92,6 +92,3 @@ Rectangle {
     //deleting money completely
     //save some money -> an amount that must never be spent
     //set alarm for the balance
-
-
-

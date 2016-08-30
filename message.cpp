@@ -3,7 +3,8 @@
 Message::Message(QObject *parent) : QObject(parent)
 {
     _categoryModel = new CategoryModel();
-    insertCategory("Φάβα","images/coffee.png");
+  //  insertCategory("Φάβα","images/coffee.png");
+    _purchaseModel = new purchaseModel();
 }
 
 void Message::insertCategory (QString name, QString imgPath)
@@ -11,6 +12,10 @@ void Message::insertCategory (QString name, QString imgPath)
     _categoryModel->insertCategory(name,imgPath);
     emit catModelChanged();
     qDebug("InsertCategory called in Msg\n");
+}
+void Message::insertPurchase(QString categ,double amount, QString note, QDate date, QString ppl, QString paym, QString place, QString event)
+{
+    _purchaseModel->insertPurchase(categ,amount,note,date,ppl,paym,place,event);
 }
 
 /*void Message::insertCategory(QString name, QString imgPath)

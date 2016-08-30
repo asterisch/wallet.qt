@@ -30,7 +30,6 @@
         <file>deployment.pri</file>
         <file>H.qml</file>
         <file>HForm.ui.qml</file>
-        <file>images.zip</file>
         <file>main.cpp</file>
         <file>MainForm.ui.qml</file>
         <file>message.cpp</file>
@@ -38,9 +37,18 @@
         <file>nm.qrc</file>
         <file>qml.qrc</file>
         <file>template1.qml</file>
-        <file>e-wallet.pro</file>
+        <file>untitled2.pro</file>
         <file>images/cocktail.png</file>
         <file>images/coffee.png</file>
+        <file>images/clothes.png</file>
+        <file>MoneySpent.qml</file>
+        <file>images/howMuch.png</file>
+        <file>DatePicker.qml</file>
+        <file>PaymentMethod.qml</file>
+        <file>images/cash.png</file>
+        <file>images/check.png</file>
+        <file>images/CreditCard.png</file>
+        <file>images/other.png</file>
         <file>MyWallet.qml</file>
         <file>NewWallet.qml</file>
         <file>images/addWallet.png</file>
@@ -49,8 +57,5 @@
         <file>images/deleteWallet1.png</file>
         <file>images/wallet.png</file>
         <file>images/walletSummary.png</file>
-        <file>DatePicker.qml</file>
-        <file>MoneySpent.qml</file>
-        <file>PaymentMethod.qml</file>
     </qresource>
 </RCC>

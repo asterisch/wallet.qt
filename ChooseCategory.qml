@@ -11,7 +11,7 @@ Rectangle{
     width: parent.width
 
 
-    Component {
+    Component{
         id: newCategory
         NewCategory{}
     }
@@ -25,23 +25,6 @@ Rectangle{
         anchors.left: parent.left
         TitleLabel {text:"Choose Category"}
         BackButton{}
-
-        ToolButton{
-
-            id: saveButton
-            anchors.right: parent.right
-            anchors.top: parent.top
-            width: parent.height
-            height: parent.height
-            Image{
-
-                source: "images/ok.png"
-                anchors.fill: parent
-                anchors.margins: 1
-            }
-            //onClicked:{}
-        }
-
         ToolButton{
 
             id: addButton
@@ -55,104 +38,67 @@ Rectangle{
                 anchors.margins: 1
             }
             onClicked:{
-
-                stack.push(newCategory);
-
+                    stack.push(newCategory);
             }
         }
     }
 
-
-    property int currentIndex: 100
-
-
-    ListModel{
-        id: listModel
-
-        ListElement{
-            //id: cloothes
-            cat: "clothes"
-            imgPath:"images/coffee.png"
-            //onClicked:{
-              //  currentIndex = 0
-            //}
-        }
-        ListElement{
-            //d: drinks
-            cat: "drinks"
-            //onClicked:{
-              //  currentIndex = 1
-            //}
-        }
-    }
-
-
     Rectangle{
-
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: toolBar5.bottom
-
         color:"red"
         anchors.margins: 10
+        GridView{
 
-        ListView{
-
-            id: myView
-            anchors.fill: parent
-            anchors.margins: 3
-            clip: true
-            ExclusiveGroup{id: radioButtonGroup}
-            //model: listModel
-            model: msg.catModel
-            delegate: activeDelegate
-        }
+                id: myView
+                anchors.fill: parent
+                anchors.margins: 3
+                clip: true
+                cellWidth:60
+                cellHeight:60
+                model: msg.catModel
+                delegate: activeDelegate
+    }
     }
 
-
-
-
     Component{
-
         id: activeDelegate
         Item{
-
-            width: parent.width
-            height: 30
-
-            Row{
-                width: parent.width
-                RadioButton{
-                    //text:name;
-                    text:cat;
-                    exclusiveGroup: radioButtonGroup
-                }
-
-                Image{
-
-                    id:img
-                    anchors.right: parent.right
-                    height: 30//parent.height
-                    width: 30//parent.height
-                    //fillMode: Image.PreserveAspectFit
-                    source:imgPath
+            width: 50
+            height: 50
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                   // msg.pur.setCategory(l.text)
+                    msg.categ=l.text
+                    msg.temp=l.text
+                    stack.pop()
                 }
             }
 
-            //MouseArea
-
-
-
+            Column{
+                width: parent.width
+                height:parent.height
+                Label{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    id:l
+                    verticalAlignment: Text.AlignVCenter
+                    height:(parent.width-5)/5
+                    text:name
+                }
+                Image{
+                    id:img
+                    anchors.right: parent.right
+                    height: parent.height
+                    width: parent.height
+                    fillMode: Image.PreserveAspectFit
+                    source:imgPath
+                }
+            }
         }
-
-
-
-
     }
-
-
-
-
-
 }

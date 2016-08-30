@@ -6,6 +6,7 @@ import QtQuick.Dialogs 1.0
 Rectangle{
 
 
+
     FileDialog{
         id: fileDialog
         nameFilters: ["Image files (*.jpg *.png)"]
@@ -16,7 +17,7 @@ Rectangle{
         selectExisting: true
         onAccepted:{
             console.log("You Choose: "+fileDialog.fileUrls)
-            catImg.source=fileDialog.fileUrl;
+            imgPath.source=fileDialog.fileUrl;
             fileDialog.close();
         }
         onRejected:{
@@ -48,7 +49,7 @@ Rectangle{
                 anchors.margins: 1
             }
             onClicked:{
-                msg.insertCategory(name.text,catImg);
+                msg.insertCategory(name.text,imgPath.source);
                 stack.pop();
             }
         }
@@ -82,7 +83,7 @@ Rectangle{
                         anchors.top:parent.top
                         anchors.bottom: parent.bottom
                         anchors.margins: 1
-                        id:catImg
+                        id:imgPath
                         fillMode: Image.PreserveAspectFit
                     }
                 }
