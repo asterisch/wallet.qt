@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.0
 
 Rectangle{
 
+
     color: "orange"
 
 
@@ -57,9 +58,31 @@ Rectangle{
                 anchors.margins: 1
             }
             onClicked:{
+                if (myPurchase.categ.trim().length!==0)
+                {
+                    console.log("True dat")
+                    if (myPurchase.amount!=0.0)
+                    {
+                        if (myPurchase.date.getFullYear()!=="2000")
+                        {
+                            if(myPurchase.payment!="")
+                            {
+                                if (myPurchase.place!="")
+                                {
+                                    console.log("succesfull add new Purchase")
+                                    msg.insertPurchase(myPurchase.categ,myPurchase.amount,myPurchase.note,myPurchase.date,myPurchase.people,myPurchase.payment,myPurchase.place,myPurchase.event)
+                                    console.log("DONE")
+                                }
+                            }
+                        }
+                    }
+                }else
+                {
+                    console.log("Failed! Category is Empty")
+                }
+
                 console.log("--------------------------")
-                console.log(msg.categ)
-                console.log(msg.temp)
+                console.log(myPurchase.categ)
                 stack.pop();
             }
 

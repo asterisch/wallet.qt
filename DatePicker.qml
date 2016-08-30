@@ -28,11 +28,11 @@ Rectangle{
                 anchors.fill: parent
                 anchors.margins: 1
             }
-            //onClicked:{
+            onClicked:{
 
-              //  gridView1.append({});
-                //stack.pop();
-            //}
+                gridView1.append({});
+                stack.pop();
+            }
 
         }
     }
@@ -44,6 +44,7 @@ Rectangle{
         anchors.right: parent.right
 
         Calendar{
+            id: cal
             anchors.fill: parent
             weekNumbersVisible: true
         }

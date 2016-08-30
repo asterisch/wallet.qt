@@ -3,6 +3,20 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 
 Rectangle {
+    Item
+    {
+        id: myPurchase
+        property string categ: ""
+        property double amount: 0.0
+        property string note: ""
+        property date date: "2000-01-01"
+        property string people: ""
+        property string payment: ""
+        property string place: ""
+        property string event: ""
+
+
+    }
 
     color: "magenta"
 
@@ -34,6 +48,13 @@ Rectangle {
                 anchors.margins: 1
             }
             onClicked:{
+                myPurchase.categ=""
+                myPurchase.amount=0.0
+                myPurchase.note=""
+                myPurchase.date="2000-01-01"
+                myPurchase.people=""
+                myPurchase.place=""
+                myPurchase.event=""
                 stack.push(np);
             }
         }

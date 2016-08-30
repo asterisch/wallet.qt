@@ -28,7 +28,7 @@ Rectangle{
         ToolButton{
 
             id: addButton
-            anchors.right: saveButton.left
+            anchors.right: parent.left
             anchors.top: parent.top
             width: parent.height
             height: parent.height
@@ -73,9 +73,8 @@ Rectangle{
                 anchors.fill: parent
                 onClicked:
                 {
-                   // msg.pur.setCategory(l.text)
                     msg.categ=l.text
-                    msg.temp=l.text
+                    myPurchase.categ=l.text
                     stack.pop()
                 }
             }

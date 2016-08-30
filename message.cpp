@@ -16,6 +16,8 @@ void Message::insertCategory (QString name, QString imgPath)
 void Message::insertPurchase(QString categ,double amount, QString note, QDate date, QString ppl, QString paym, QString place, QString event)
 {
     _purchaseModel->insertPurchase(categ,amount,note,date,ppl,paym,place,event);
+    emit purModelChanged();
+    qDebug("InsertPurchase called in Msg\n");
 }
 
 /*void Message::insertCategory(QString name, QString imgPath)
