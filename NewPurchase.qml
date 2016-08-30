@@ -9,9 +9,23 @@ Rectangle{
 
 
     Component{
-
         id: categories
         ChooseCategory{}
+    }
+
+    Component{
+        id: money
+        MoneySpent{}
+    }
+
+    Component{
+        id: date
+        DatePicker{}
+    }
+
+    Component{
+        id: method
+        PaymentMethod{}
     }
 
 
@@ -66,24 +80,18 @@ Rectangle{
         anchors.top: toolBar4.bottom
         height: 30
 
-        //color: "lightblue"
-
         anchors.topMargin: 10
         anchors.margins: 3
         spacing: 2
-        //border.width: 2
-        //border.color: "white"
 
         Row{
 
             width: parent.width
             Button{
-
                 id: button1
                 width: parent.width
                 height: 30
                 Text{
-
                     text:"Choose Category"
                     //color: "red"
                     anchors.margins: 5
@@ -91,7 +99,6 @@ Rectangle{
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 Image{
-
                     source:"images/rr.png"
                     width: parent.height
                     height: parent.height
@@ -99,7 +106,6 @@ Rectangle{
                     anchors.right: parent.right
                 }
                 Image{
-
                     id: imgLeft1
                     source:"images/categories.png"
                     width: parent.height
@@ -109,16 +115,10 @@ Rectangle{
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 onClicked:{
-
                     stack.push(categories);
-
                 }
-
             }
-
         }
-
-
 
         Row{
 
@@ -131,7 +131,6 @@ Rectangle{
                 Text{
 
                     text:"Money Spent"
-                    //color: "red"
                     anchors.margins: 5
                     anchors.left: imgLeft2.right
                     anchors.verticalCenter: parent.verticalCenter
@@ -154,8 +153,9 @@ Rectangle{
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                 }
-
-                //onClicked: {}
+                onClicked:{
+                    stack.push(money);
+                }
 
             }
         }
@@ -207,7 +207,6 @@ Rectangle{
                 Text{
 
                     text:"Date"
-                    //color: "red"
                     anchors.margins: 5
                     anchors.left: imgLeft3.right
                     anchors.verticalCenter: parent.verticalCenter
@@ -230,7 +229,9 @@ Rectangle{
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                 }
-                //onClicked: {}
+                onClicked:{
+                    stack.push(date);
+                }
             }
         }
 
@@ -307,7 +308,9 @@ Rectangle{
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                 }
-                //onClicked: {}
+                onClicked:{
+                    stack.push(method);
+                }
             }
         }
 
