@@ -28,7 +28,7 @@ Rectangle{
         ToolButton{
 
             id: addButton
-            anchors.right: parent.left
+            anchors.right: parent.right
             anchors.top: parent.top
             width: parent.height
             height: parent.height

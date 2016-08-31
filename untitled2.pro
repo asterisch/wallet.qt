@@ -8,7 +8,10 @@ SOURCES += main.cpp \
     message.cpp \
     categorymodel.cpp \
     purchase.cpp \
-    purchasemodel.cpp
+    purchasemodel.cpp \
+    budget.cpp \
+    budgetmodel.cpp \
+    walletmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,4 +26,15 @@ HEADERS += \
     message.h \
     categorymodel.h \
     purchase.h \
-    purchasemodel.h
+    purchasemodel.h \
+    budget.h \
+    budgetmodel.h \
+    walletmodel.h
+
+SUBDIRS += \
+    e-wallet.pro
+
+DISTFILES += \
+    images.zip \
+    LICENSE \
+    README.md

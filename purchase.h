@@ -16,9 +16,11 @@ private:
     QString paymethod;
     QString place;
     QString event;
+    int id;
 public:
-        Purchase(QString categ,double amount,QString desc,QDate date,QString people,QString paym,QString place,QString event);
+        Purchase(int id,QString categ,double amount,QString desc,QDate date,QString people,QString paym,QString place,QString event);
         Purchase();
+
         QString getCategory() { return category;}
         double getAmount() {return amount;}
         QString getNote() {return note;}
@@ -27,7 +29,7 @@ public:
         QString getPaymethod() {return paymethod;}
         QString getPlace() {return place;}
         QString getEvent() {return event;}
-
+        int getID() {return id;}
         void setCategory(QString categ) {this->category=categ;}
         void setAmount(double amount) { this->amount=amount;}
         void setNote(QString note) {this->note=note;}

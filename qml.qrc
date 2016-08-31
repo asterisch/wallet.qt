@@ -49,13 +49,32 @@
         <file>images/check.png</file>
         <file>images/CreditCard.png</file>
         <file>images/other.png</file>
-        <file>MyWallet.qml</file>
-        <file>NewWallet.qml</file>
         <file>images/addWallet.png</file>
         <file>images/addWallet1.png</file>
         <file>images/deleteWallet.png</file>
         <file>images/deleteWallet1.png</file>
         <file>images/wallet.png</file>
         <file>images/walletSummary.png</file>
+        <file>SetBudget.qml</file>
+        <file>BudgetDatePickerFrom.qml</file>
+        <file>BudgetDatePickerTo.qml</file>
+        <file>BudgetMoney.qml</file>
+        <file>images/Woooooo.png</file>
+        <file>images/delete.png</file>
+        <file>budget.cpp</file>
+        <file>budget.h</file>
+        <file>budgetmodel.cpp</file>
+        <file>budgetmodel.h</file>
+        <file>e-wallet.pro</file>
+        <file>images.zip</file>
+        <file>LICENSE</file>
+        <file>purchase.cpp</file>
+        <file>purchase.h</file>
+        <file>purchasemodel.cpp</file>
+        <file>purchasemodel.h</file>
+        <file>README.md</file>
+        <file>ViewPurchase.qml</file>
+        <file>walletmodel.cpp</file>
+        <file>walletmodel.h</file>
     </qresource>
 </RCC>

@@ -3,6 +3,7 @@
 using namespace std;
 purchaseModel::purchaseModel()
 {
+    this->vector_size=0;
 }
 QHash<int, QByteArray> purchaseModel::roleNames() const{
     QHash<int, QByteArray> roles;
@@ -14,6 +15,7 @@ QHash<int, QByteArray> purchaseModel::roleNames() const{
     roles[PaymethodRole] = "payment";
     roles[PlaceRole] = "place";
     roles[EventRole] = "event";
+    roles[IdRole]="id";
     return roles;
 }
 int purchaseModel::rowCount(const QModelIndex &parent) const
@@ -36,6 +38,7 @@ QVariant purchaseModel::data(const QModelIndex &index, int role) const{
         case PaymethodRole: return i.getPaymethod();
         case PlaceRole: return i.getPlace();
         case EventRole: return i.getEvent();
+        case IdRole: return i.getID();
         default: return QVariant();
         }
     }
@@ -49,32 +52,26 @@ void purchaseModel::insertPurchase(QString categ, double amount, QString note, Q
                                    QString ppl, QString paym, QString place, QString event)
 {
     beginResetModel();
-    Purchase c(categ,amount,note,date,ppl,paym,place,event);
+    Purchase c(this->vector_size,categ,amount,note,date,ppl,paym,place,event);
     this->agores.push_back(c);
+    this->vector_size++;
     endResetModel();
     qDebug("InsertPurchase called in Purchase Model\n");
     qDebug("Size of vector is now %d\n",agores.size());
-}/*
-QVariant purchaseModel::headerData(int section, Qt::Orientation orientation, int role) const{
-
-    if (role != Qt::DisplayRole)
-        return QVariant();
-    if (orientation == Qt::Horizontal)
+}
+void purchaseModel::removePurchase(int id)
+{
+    beginResetModel();
+    for(int j=0;j<agores.size();j++)
     {
-        switch (role)
+        Purchase p = this->agores.at(j);
+        if(p.getID()==id)
         {
-        case CategoryRole: return "Category";
-        case AmountRole: return "Amount";
-        case NoteRole: return "Note";
-        case DateRole: return "Date";
-        case PeopleRole: return "People";
-        case PaymethodRole: return "Payment Method";
-        case PlaceRole: return "Place";
-        case EventRole: return "Event";
-        default: return QVariant();
+            agores.erase(this->agores.begin()+j);
+            break;
         }
     }
-    else
-        return QString("Row %1").arg(section);
+    endResetModel();
+    qDebug("removePurchase called in PurchaseModel");
 }
-*/
+

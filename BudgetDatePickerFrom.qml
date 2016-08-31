@@ -30,14 +30,9 @@ Rectangle{
             }
             onClicked:{
 
-                myPurchase.date = cal.selectedDate
-                console.log(myPurchase.date.toDateString())
-                console.log(myPurchase.date.toLocaleDateString())
-                console.log(myPurchase.date.toISOString())
-                console.log(myPurchase.date.toUTCString())
-                console.log(myPurchase.date.toLocaleString())
-                console.log(myPurchase.date.toString())
-                console.log(myPurchase.date.toJSON())
+                myBalance.dateFrom = cal.selectedDate
+                console.log(myBalance.dateFrom.toISOString())
+                console.log(myBalance.dateFrom.toJSON())
                 stack.pop();
             }
 
@@ -68,5 +63,3 @@ Rectangle{
 
 
 }
-
-
