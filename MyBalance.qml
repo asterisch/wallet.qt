@@ -19,12 +19,12 @@ Rectangle {
     }
 
     ToolBar{
-        id: toolBar2
+        id: toolBar12
         width: parent.width
         height: 30
         anchors.right: parent.right
         anchors.left: parent.left
-        TitleLabel {text:"Money Manager"}
+        TitleLabel {text:"My Budgets"}
         BackButton{}
 
         ToolButton{
@@ -48,26 +48,93 @@ Rectangle {
         }
     }
 
-    GridView{
-
-        id: gridView1
+    Rectangle{
+        id: currentBudget
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.top: toolBar2.bottom
-        anchors.margins: 15 //-------------------------------------------
+        anchors.top: toolBar12.bottom
+        anchors.margins: 3
+        color:"pink"
+        width: parent.width
+        height: 200
 
-        cellWidth: 150
-        cellHeight: 150
+        Row{
+            anchors.fill: parent
+            Column{
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                height: parent.height
+                width: 220//160
+                //model:
+                Calendar{
+                    //minimumDate: dateFrom
+                    //maximumDate: dateTo
+                    //selectedDate:
+                    anchors.fill: parent
+                }
+            }
+            Column{
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                height: parent.height
+                width:parent.width - 220
+                Row{
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    width: parent.width
+                    height: parent.height/3
+                    Label{
+                        text:"ahahahah"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
+                Row{
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    width: parent.width
+                    height: (parent.height/3)*2
+                    Button{
+                        anchors.margins: 25
+                        anchors.fill: parent
+                        text:"EDIT"
+                        //onClicked:{}
+                    }
+                }
+            }
 
-
-        //the purchases must be shown here as a grid view, like the main form of the recipes brakas app
-        //clickable in order to show some more info
-        //with icon
-        //we will have some icons to choose from: clothes, food, drink, supermarket, car, entertainment, beauty ...
-
-
+        }
     }
 
-
+    ListView{
+            id: listView1
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.top: currentBudget.bottom
+            anchors.margins: 30 //-------------------------------------------
+            model: msg.budModel
+            delegate: Item{
+                id:item
+                width: listView1.width
+                height: 30
+                MouseArea{
+                    anchors.fill: parent
+                    //onclicked:
+                    Row{
+                        width: parent.width
+                        spacing: 5
+                        Label{
+                            id:label
+                            text:dateFrom.toISOString().split("T")[0]+" --- "+dateTo.toISOString().split("T")[0]+" : "+amount.toString()+" €"
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                    }
+                }
+            }
+        }
 }

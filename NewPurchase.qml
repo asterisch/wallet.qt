@@ -8,7 +8,6 @@ Rectangle{
 
     color: "orange"
 
-
     Component{
         id: categories
         ChooseCategory{}
@@ -62,12 +61,10 @@ Rectangle{
                 {
                     if (myPurchase.amount!=0.0)
                     {
-
+                        console.log(myPurchase.date.toISOString().split("T")[0])
                         if (myPurchase.date.toISOString().split("T")[0]!=="2000-01-01")
                         {
-                                myPurchase.place=placetxt.text
-                                if (myPurchase.place.trim().length!=0)
-                                {
+                                    myPurchase.place=placetxt.text
                                     myPurchase.note=notetxt.text
                                     myPurchase.people=peopletxt.text
                                     myPurchase.event=eventtxt.text
@@ -86,11 +83,6 @@ Rectangle{
                                     console.log(myPurchase.event)
                                     stack.pop();
                                     console.log("----------DONE-----------")
-                                }else
-                                {
-                                    console.log("Failed! place is Empty")
-
-                                }
                         }else
                         {
                             console.log("Failed! date is Empty")
@@ -136,12 +128,26 @@ Rectangle{
                 width: parent.width
                 height: 30
                 Text{
+                    id: categtxt
                     text:"Choose Category"
                     //color: "red"
                     anchors.margins: 5
                     anchors.left: imgLeft1.right
                     anchors.verticalCenter: parent.verticalCenter
                 }
+                Text
+                {
+                    text:myPurchase.categ
+                    anchors.verticalCenterOffset: 0
+                    anchors.leftMargin: 274
+                    color:"red"
+                    font.italic: true
+                    font.bold: true
+                    font.family: Arial
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
                 Image{
                     source:"images/rr.png"
                     width: parent.height
@@ -177,6 +183,18 @@ Rectangle{
                     text:"Money Spent"
                     anchors.margins: 5
                     anchors.left: imgLeft2.right
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                Text
+                {
+                    text:myPurchase.amount
+                    anchors.verticalCenterOffset: 0
+                    anchors.leftMargin: 274
+                    color:"orange"
+                    font.italic: true
+                    font.bold: true
+                    font.family: Arial
+                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 Image{
@@ -253,6 +271,18 @@ Rectangle{
                     text:"Date"
                     anchors.margins: 5
                     anchors.left: imgLeft3.right
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                Text
+                {
+                    text:dater()
+                    anchors.verticalCenterOffset: 0
+                    anchors.leftMargin: 274
+                    color:"blue"
+                    font.italic: true
+                    font.bold: true
+                    font.family: Arial
+                    anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 Image{
@@ -430,343 +460,6 @@ Rectangle{
             }
         }
 
-
-
-
-
-
-
-
-
-
-//Add button for picture usage AND camera capture
-
-
-
-/*
-
-        //////////////////////////////////////////////////////////////////////
-
-
-        //Just for testing reasons
-        //these rows are used to see how scroll works. It does not :P
-
-
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2qw
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12w
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2we
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2bnmnbnm
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12we
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2wexxfxv
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2nm
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12wewdwfw
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2weffgfg
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2we
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12weklkl
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2welll
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2eeee
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12ee
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2e
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2ewe
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12www
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2wewewe
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2w
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12ewewe
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2wfds
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2d
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12sdsd
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2fgfgfgfgfgfggffg
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2sdsd
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12sdsdkl
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2sdsd
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-        Row{
-
-            width: parent.width
-            height: 30
-            Rectangle{
-
-                id: rect2sssss
-                width: parent.height
-                height: parent.height
-                color: "gainsboro"
-                Image{
-
-                    id: imgLeft12sssssssss
-                    source:"images/with.png"
-                    width: parent.height
-                    height: parent.height-6
-                    anchors.margins: 1
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-            TextField{
-
-                id: textField2ssssss
-                height: 30
-                placeholderText: "With"
-                anchors.leftMargin: 1
-                anchors.left: rect2.right
-                anchors.right: parent.right
-            }
-        }
-
-
-
-
-*/
 
     }
 

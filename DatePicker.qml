@@ -30,7 +30,9 @@ Rectangle{
             }
             onClicked:{
 
+
                 myPurchase.date = cal.selectedDate
+
                 console.log(myPurchase.date.toDateString())
                 console.log(myPurchase.date.toLocaleDateString())
                 console.log(myPurchase.date.toISOString())
@@ -60,6 +62,8 @@ Rectangle{
             id: cal
             anchors.fill: parent
             weekNumbersVisible: true
+            dayOfWeekFormat: Locale.NarrowFormat
+
         }
 
     }

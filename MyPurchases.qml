@@ -3,6 +3,50 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 
 Rectangle {
+
+    function dater()
+    {
+        var year=parseInt(myPurchase.date.toISOString().split("T")[0].split("-")[0]);
+        var month=parseInt(myPurchase.date.toISOString().split("T")[0].split("-")[1]);
+        var day=parseInt(myPurchase.date.toISOString().split("T")[0].split("-")[2]);
+        day=day+1;
+        if(year===2000 && month===1 && day===2)
+        {
+            return " "
+        }
+        if (month%2!=0)
+        {
+            if(day>30)
+            {
+                month=month+1;
+                day=1;
+                if(month===12)
+                {
+                    year=year+1;
+                    month=1;
+                }
+            }
+        }
+        else
+        {
+            if(day>31)
+            {
+                month=month+1;
+                day=1;
+                if(month===12)
+                {
+                    year=year+1;
+                    month=1;
+                }
+            }
+            if (month===2 && day>28)
+            {
+                month=month+1;
+                day=1;
+            }
+        }
+        return day.toString()+"-"+month.toString()+"-"+year.toString()
+    }
     color: "magenta"
     Item
     {
@@ -11,7 +55,7 @@ Rectangle {
         property string categ: ""
         property double amount: 0.0
         property string note: ""
-        property date date: "2000-01-01"
+        property date date: new Date()
         property string people: ""
         property string payment: "cash"
         property string place: ""
