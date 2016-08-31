@@ -1,9 +1,12 @@
 #include "purchasemodel.h"
-
+#include <QtSql>
+#include "dbmanager.h"
 using namespace std;
+const QString path = "/sqlite3/rest.db";
 purchaseModel::purchaseModel()
 {
     this->vector_size=0;
+
 }
 QHash<int, QByteArray> purchaseModel::roleNames() const{
     QHash<int, QByteArray> roles;
@@ -48,17 +51,33 @@ QVariant purchaseModel::data(const QModelIndex &index, int role) const{
         return qv;
     }
 }
-void purchaseModel::insertPurchase(QString categ, double amount, QString note, QDate date,
+void purchaseModel::insertPurchase(bool isLoaded,QString categ, double amount, QString note, QDate date,
                                    QString ppl, QString paym, QString place, QString event)
 {
     beginResetModel();
+    DbManager db(path);
+    if (db.isOpen())
+    {
+       QSqlQuery q;
+       int lastid= (int) q.exec("select last_insert_rowID()");
+       this->vector_size=++lastid;
+    }else return;
     Purchase c(this->vector_size,categ,amount,note,date,ppl,paym,place,event);
     this->agores.push_back(c);
     this->vector_size++;
+    if(!isLoaded)
+    {
+        DbManager db(path);
+
+        if (db.isOpen())
+        {
+           db.addPurchase(c);
+        }
     endResetModel();
     qDebug("InsertPurchase called in Purchase Model\n");
-    qDebug("Size of vector is now %d\n",agores.size());
+    }
 }
+
 void purchaseModel::removePurchase(int id)
 {
     beginResetModel();
@@ -68,10 +87,20 @@ void purchaseModel::removePurchase(int id)
         if(p.getID()==id)
         {
             agores.erase(this->agores.begin()+j);
+            DbManager db(path);
+
+            if (db.isOpen())
+            {
+               db.removePurchase(id);
+            }
             break;
         }
+
     }
     endResetModel();
     qDebug("removePurchase called in PurchaseModel");
 }
+void purchaseModel::loadPurchases()
+{
 
+}

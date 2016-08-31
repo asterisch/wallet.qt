@@ -64,12 +64,13 @@ Rectangle{
                         console.log(myPurchase.date.toISOString().split("T")[0])
                         if (myPurchase.date.toISOString().split("T")[0]!=="2000-01-01")
                         {
+                            if(myPurchase.amount <= msg.curBalance()){
                                     myPurchase.place=placetxt.text
                                     myPurchase.note=notetxt.text
                                     myPurchase.people=peopletxt.text
                                     myPurchase.event=eventtxt.text
 
-                                    msg.insertPurchase(myPurchase.categ,myPurchase.amount,myPurchase.note,myPurchase.date,myPurchase.people,myPurchase.payment,myPurchase.place,myPurchase.event)
+                                    msg.insertPurchase(false,myPurchase.categ,myPurchase.amount,myPurchase.note,myPurchase.date,myPurchase.people,myPurchase.payment,myPurchase.place,myPurchase.event)
 
                                     console.log("--------------------------")
                                     console.log("succesfull add new Purchase")
@@ -81,8 +82,16 @@ Rectangle{
                                     console.log(myPurchase.payment)
                                     console.log(myPurchase.place)
                                     console.log(myPurchase.event)
+                                    msg.changeBalance(msg.curBalance()-myPurchase.amount)
+                                    console.log("--------------------------")
+                                    console.log(msg.curBalance());
+                                    console.log("--------------------------")
                                     stack.pop();
                                     console.log("----------DONE-----------")
+                            }
+                            else{
+                                console.log("Failed! Amount greater than balance");
+                            }
                         }else
                         {
                             console.log("Failed! date is Empty")
@@ -429,7 +438,7 @@ Rectangle{
 
 
         Row{
-
+            id:lastRow
             width: parent.width
             height: 30
             Rectangle{
@@ -462,5 +471,20 @@ Rectangle{
 
 
     }
+    Rectangle{
+            color:"lightgrey"
+            anchors.right: parent.right
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            height: 90
+            width: parent.width
+            Label{
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 42
+                color:"red"
+                text:msg.curBalance()
+            }
+        }
 
 }

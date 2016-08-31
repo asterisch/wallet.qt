@@ -16,6 +16,7 @@ class Message : public QObject{
         purchaseModel* _purchaseModel;
         budgetModel* _budgetModel;
     public:
+
         Message(QObject *parent=0);
 
         void catSetModel (CategoryModel* c)
@@ -57,10 +58,27 @@ class Message : public QObject{
     public slots:
         void insertCategory (QString name, QString imgPath);
         void test(){}
-        void insertPurchase(QString categ,double amount, QString note, QDate date, QString ppl, QString paym, QString place, QString event);
+        void insertPurchase(bool isLoaded,QString categ,double amount, QString note, QDate date, QString ppl, QString paym, QString place, QString event);
         void removePurchase(int id);
         //void loadPurchases();
         void setBudget(double amount,QDate dateFrom,QDate dateTo);
+        void removeBudget(int id);
+        //sort bud model
+
+        double curBalance(){
+            return _budgetModel->lastBal(_budgetModel->posoSize()-1).getAmount();
+        }
+
+        QDate curDateFrom(){
+            return _budgetModel->lastBal(_budgetModel->posoSize()-1).getDateFrom();
+        }
+
+        QDate curDateTo(){
+            return _budgetModel->lastBal(_budgetModel->posoSize()-1).getDateTo();
+        }
+        void changeBalance(double a){
+            _budgetModel->lastBal2(_budgetModel->posoSize()-1)->setAmount(a);
+        }
 
 };
 

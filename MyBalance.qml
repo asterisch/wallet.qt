@@ -6,9 +6,10 @@ Rectangle {
     Item
     {
         id: myBalance
-        property double amount: 0.0
-        property date dateFrom
-        property date dateTo
+        property int newID
+        property double amount:msg.curBalance()
+        property date dateFrom:msg.curDateFrom()
+        property date dateTo:msg.curDateTo()
     }
 
     color: "blue"
@@ -16,6 +17,11 @@ Rectangle {
     Component{
         id: sb
         SetBudget{}
+    }
+
+    Component{
+        id: eb
+        EditBudget{}
     }
 
     ToolBar{
@@ -49,6 +55,7 @@ Rectangle {
     }
 
     Rectangle{
+
         id: currentBudget
         anchors.left: parent.left
         anchors.right: parent.right
@@ -66,11 +73,10 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 height: parent.height
                 width: 220//160
-                //model:
                 Calendar{
-                    //minimumDate: dateFrom
-                    //maximumDate: dateTo
-                    //selectedDate:
+                    minimumDate: myBalance.dateFrom
+                    maximumDate: myBalance.dateTo
+                    selectedDate: new Date(); //displays the current date
                     anchors.fill: parent
                 }
             }
@@ -87,7 +93,7 @@ Rectangle {
                     width: parent.width
                     height: parent.height/3
                     Label{
-                        text:"ahahahah"
+                        text:myBalance.amount
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -102,11 +108,13 @@ Rectangle {
                         anchors.margins: 25
                         anchors.fill: parent
                         text:"EDIT"
-                        //onClicked:{}
+                        onClicked:{
+                            stack.push({item:eb, properties:{editAmount:myBalance.amount,editDateFrom:myBalance.dateFrom, editDateTo:myBalance.dateTo}});
+                            //amount:myBalance.amount
+                        }
                     }
                 }
             }
-
         }
     }
 

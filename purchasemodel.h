@@ -22,7 +22,7 @@ public:
     QHash<int, QByteArray> roleNames() const;
     int rowCount(const QModelIndex &parent = QModelIndex())const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    void insertPurchase(QString categ,double amount, QString note, QDate date,QString ppl, QString paym, QString place, QString event);
+    void insertPurchase(bool isLoaded,QString categ,double amount, QString note, QDate date,QString ppl, QString paym, QString place, QString event);
     void removePurchase(int id);
     void loadPurchases();
     //QVariant headerData(int section, Qt::Orientation orientation, int role) const;

@@ -7,6 +7,7 @@
 using namespace std;
 class Purchase
 {
+
 private:
     QString category;
     double amount;
@@ -30,6 +31,7 @@ public:
         QString getPlace() {return place;}
         QString getEvent() {return event;}
         int getID() {return id;}
+        void setID(int id) {this->id=id;}
         void setCategory(QString categ) {this->category=categ;}
         void setAmount(double amount) { this->amount=amount;}
         void setNote(QString note) {this->note=note;}

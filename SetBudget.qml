@@ -84,8 +84,6 @@ Rectangle{
                     {
                         console.log("Failed! amount is Empty")
                     }
-
-
             }
 
         }

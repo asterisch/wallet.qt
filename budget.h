@@ -12,9 +12,11 @@ private:
     double amount;
     QDate dateFrom;
     QDate dateTo;
+    int id;
 public:
-        Budget(double amount,QDate dateFrom,QDate dateTo);
+        Budget(int id,double amount,QDate dateFrom,QDate dateTo);
         Budget();
+        int getID(){return id;}
         double getAmount() {return amount;}
         QDate getDateFrom() {return dateFrom;}
         QDate getDateTo() {return dateTo;}

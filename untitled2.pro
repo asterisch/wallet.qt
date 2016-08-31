@@ -1,6 +1,7 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += qml quick \
+        sql
 CONFIG += c++11
 
 SOURCES += main.cpp \
@@ -11,7 +12,8 @@ SOURCES += main.cpp \
     purchasemodel.cpp \
     budget.cpp \
     budgetmodel.cpp \
-    walletmodel.cpp
+    walletmodel.cpp \
+    dbmanager.cpp
 
 RESOURCES += qml.qrc
 
@@ -29,7 +31,8 @@ HEADERS += \
     purchasemodel.h \
     budget.h \
     budgetmodel.h \
-    walletmodel.h
+    walletmodel.h \
+    dbmanager.h
 
 SUBDIRS += \
     e-wallet.pro

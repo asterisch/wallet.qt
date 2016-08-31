@@ -4,49 +4,6 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
 
-    function dater()
-    {
-        var year=parseInt(myPurchase.date.toISOString().split("T")[0].split("-")[0]);
-        var month=parseInt(myPurchase.date.toISOString().split("T")[0].split("-")[1]);
-        var day=parseInt(myPurchase.date.toISOString().split("T")[0].split("-")[2]);
-        day=day+1;
-        if(year===2000 && month===1 && day===2)
-        {
-            return " "
-        }
-        if (month%2!=0)
-        {
-            if(day>30)
-            {
-                month=month+1;
-                day=1;
-                if(month===12)
-                {
-                    year=year+1;
-                    month=1;
-                }
-            }
-        }
-        else
-        {
-            if(day>31)
-            {
-                month=month+1;
-                day=1;
-                if(month===12)
-                {
-                    year=year+1;
-                    month=1;
-                }
-            }
-            if (month===2 && day>28)
-            {
-                month=month+1;
-                day=1;
-            }
-        }
-        return day.toString()+"-"+month.toString()+"-"+year.toString()
-    }
     color: "magenta"
     Item
     {
@@ -107,25 +64,29 @@ Rectangle {
 */
                 Label{
                     anchors.horizontalCenter: parent.horizontalCenter
-                    id:l
-                    verticalAlignment: Text.AlignVCenter
-                    height:parent.height*0.3
-                    text:category
-                }
-                Label{
-                    anchors.horizontalCenter: parent.horizontalCenter
                     id:l2
                     verticalAlignment: Text.AlignVCenter
                     height:parent.height*0.3
                     text:date.toDateString()
                     font.pixelSize: 10
+
                 }
                 Label{
                     anchors.horizontalCenter: parent.horizontalCenter
-                    id:l3
+                    id:l
+                    font.bold: true
                     verticalAlignment: Text.AlignVCenter
                     height:parent.height*0.3
-                    text:amount
+                    text:category
+                }
+
+                Label{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    id:l3
+                    font.italic: true
+                    verticalAlignment: Text.AlignVCenter
+                    height:parent.height*0.3
+                    text:amount+" €"
                 }
                 Label
                 {
@@ -174,5 +135,49 @@ Rectangle {
                 stack.push(np);
             }
         }
+    }
+
+    function dater()
+    {
+        var year=parseInt(myPurchase.date.toISOString().split("T")[0].split("-")[0]);
+        var month=parseInt(myPurchase.date.toISOString().split("T")[0].split("-")[1]);
+        var day=parseInt(myPurchase.date.toISOString().split("T")[0].split("-")[2]);
+        day=day+1;
+        if(year===2000 && month===1 && day===2)
+        {
+            return " "
+        }
+        if (month%2!=0)
+        {
+            if(day>30)
+            {
+                month=month+1;
+                day=1;
+                if(month===12)
+                {
+                    year=year+1;
+                    month=1;
+                }
+            }
+        }
+        else
+        {
+            if(day>31)
+            {
+                month=month+1;
+                day=1;
+                if(month===12)
+                {
+                    year=year+1;
+                    month=1;
+                }
+            }
+            if (month===2 && day>28)
+            {
+                month=month+1;
+                day=1;
+            }
+        }
+        return day.toString()+"-"+month.toString()+"-"+year.toString()
     }
 }
