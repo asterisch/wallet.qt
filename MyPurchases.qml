@@ -9,13 +9,11 @@ Rectangle {
         property string categ: ""
         property double amount: 0.0
         property string note: ""
-        property date date: "2000-01-01"
+        property date date
         property string people: ""
         property string payment: ""
         property string place: ""
         property string event: ""
-
-
     }
 
     color: "magenta"

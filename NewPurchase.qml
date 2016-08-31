@@ -60,30 +60,50 @@ Rectangle{
             onClicked:{
                 if (myPurchase.categ.trim().length!==0)
                 {
-                    console.log("True dat")
                     if (myPurchase.amount!=0.0)
                     {
-                        if (myPurchase.date.getFullYear()!=="2000")
+
+                        if (myPurchase.date.toISOString().split("T")[0]!=="2000-01-01")
                         {
-                            if(myPurchase.payment!="")
-                            {
-                                if (myPurchase.place!="")
+                                myPurchase.place=placetxt.text
+                                if (myPurchase.place.trim().length!=0)
                                 {
-                                    console.log("succesfull add new Purchase")
+                                    myPurchase.note=notetxt.text
+                                    myPurchase.people=peopletxt.text
+                                    myPurchase.event=eventtxt.text
+
                                     msg.insertPurchase(myPurchase.categ,myPurchase.amount,myPurchase.note,myPurchase.date,myPurchase.people,myPurchase.payment,myPurchase.place,myPurchase.event)
-                                    console.log("DONE")
+
+                                    console.log("--------------------------")
+                                    console.log("succesfull add new Purchase")
+                                    console.log(myPurchase.categ)
+                                    console.log(myPurchase.amount)
+                                    console.log(myPurchase.note)
+                                    console.log(myPurchase.date.toISOString().split("T")[0])
+                                    console.log(myPurchase.people)
+                                    console.log(myPurchase.payment)
+                                    console.log(myPurchase.place)
+                                    console.log(myPurchase.event)
+                                    stack.pop();
+                                    console.log("----------DONE-----------")
+                                }else
+                                {
+                                    console.log("Failed! place is Empty")
+
                                 }
-                            }
+                        }else
+                        {
+                            console.log("Failed! date is Empty")
                         }
+                    }else
+                    {
+                        console.log("Failed! amount is Empty")
                     }
                 }else
                 {
                     console.log("Failed! Category is Empty")
                 }
 
-                console.log("--------------------------")
-                console.log(myPurchase.categ)
-                stack.pop();
             }
 
         }
@@ -209,7 +229,7 @@ Rectangle{
             }
             TextField{
 
-                id: textField1
+                id: notetxt
                 height: 30
                 placeholderText: "Add a Note"
                 anchors.leftMargin: 1
@@ -286,7 +306,7 @@ Rectangle{
             }
             TextField{
 
-                id: textField2
+                id: peopletxt
                 height: 30
                 placeholderText: "With"
                 anchors.leftMargin: 1
@@ -365,7 +385,7 @@ Rectangle{
             }
             TextField{
 
-                id: textField3
+                id: placetxt
                 height: 30
                 placeholderText: "Place"
                 anchors.leftMargin: 1
@@ -401,7 +421,7 @@ Rectangle{
             }
             TextField{
 
-                id: textField4
+                id: eventtxt
                 height: 30
                 placeholderText: "Event"
                 anchors.leftMargin: 1

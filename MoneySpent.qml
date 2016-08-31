@@ -28,8 +28,11 @@ Rectangle{
                 anchors.margins: 1
             }
             onClicked:{
-                //msg.insertCategory(name.text,imgPath.source);
-                //stack.pop();
+                if (amount.text.trim()!=="")
+                {
+                    myPurchase.amount=amount.text.trim()
+                }
+                stack.pop();
             }
         }
     }

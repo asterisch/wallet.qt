@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.0
-
+import QtQml.Models 2.2
 Rectangle{
 
     visible:true
@@ -17,22 +17,6 @@ Rectangle{
         anchors.left: parent.left
         TitleLabel {text:"Payment Method"}
         BackButton{}
-
-        ToolButton{
-
-            id: saveButton
-            anchors.right: parent.right
-            anchors.top: parent.top
-            width: parent.height
-            height: parent.height
-            Image{
-
-                source: "images/ok.png"
-                anchors.fill: parent
-                anchors.margins: 1
-            }
-            //onClicked:{}
-        }
     }
 
     Rectangle{
@@ -47,7 +31,6 @@ Rectangle{
             anchors.fill: parent
             anchors.margins: 3
             clip: true
-            ExclusiveGroup{id: radioButtonGroup}
             model: listModel
             delegate: activeDelegate
         }
@@ -57,26 +40,38 @@ Rectangle{
         id: activeDelegate
         Item{
             width: parent.width
-            height: 30
+            height: 50
             Row{
                 width: parent.width
                 height:parent.height
-                RadioButton{
-                    text:name;
-                    exclusiveGroup: radioButtonGroup
+                Button{
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    id:button
+                    height: 30
+                    width:parent.width/2
+                    text:name
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            myPurchase.payment=button.text
+                            stack.pop()
+                        }
+                    }
+                    Image{
+                        id:img
+                        anchors.right: parent.right
+                        height: parent.height
+                        width: parent.height
+                        fillMode: Image.PreserveAspectFit
+                        source:imgPath
+                    }
                 }
-                Image{
-                    id:img
-                    anchors.right: parent.right
-                    height: parent.height
-                    width: parent.height
-                    fillMode: Image.PreserveAspectFit
-                    source:imgPath
-                }
+
             }
         }
     }
-
 
     ListModel{
         id: listModel

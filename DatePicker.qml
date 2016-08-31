@@ -30,11 +30,24 @@ Rectangle{
             }
             onClicked:{
 
-                gridView1.append({});
+                myPurchase.date = cal.selectedDate
+                //console.log(myPurchase.date.toDateString())
+               // console.log(myPurchase.date.toLocaleDateString())
+                console.log(myPurchase.date.toISOString())
+               // console.log(myPurchase.date.toUTCString())
+              //  console.log(myPurchase.date.toLocaleString())
+              //  console.log(myPurchase.date.toString())
+                console.log(myPurchase.date.toJSON())
                 stack.pop();
             }
 
         }
+    }
+    Text
+    {
+        id:temp
+        visible: false
+        text:new Date().setDate(cal.selectedDate)
     }
 
     Rectangle{
