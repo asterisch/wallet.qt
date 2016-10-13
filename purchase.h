@@ -17,9 +17,9 @@ private:
     QString paymethod;
     QString place;
     QString event;
-    int id;
+    long int id;
 public:
-        Purchase(int id,QString categ,double amount,QString desc,QDate date,QString people,QString paym,QString place,QString event);
+        Purchase(long int id,QString categ,double amount,QString desc,QDate date,QString people,QString paym,QString place,QString event);
         Purchase();
 
         QString getCategory() { return category;}
