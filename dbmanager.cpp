@@ -1,4 +1,3 @@
-
 #include <dbmanager.h>
 #include <QSqlQuery>
 #include <QSqlError>

@@ -2,7 +2,8 @@
 #include <QtSql>
 #include <dbmanager.h>
 
-const QString path = "/sqlite3/rest.db";
+const QString path = "/home/alex/Desktop/wallet/wallet2/wallet.qt/sqlite3/rest.db";
+
 Message::Message(QObject *parent) : QObject(parent)
 {
     _categoryModel = new CategoryModel();

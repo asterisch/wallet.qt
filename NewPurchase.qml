@@ -28,6 +28,10 @@ Rectangle{
         PaymentMethod{}
     }
 
+    ToastComponent{
+        id: toast
+    }
+
 
 
 
@@ -91,18 +95,23 @@ Rectangle{
                             }
                             else{
                                 console.log("Failed! Amount greater than balance");
+                                toast.show("---ATTENTION---")
+                                toast.show("Amount GREATER than BALANCE",5000)
                             }
                         }else
                         {
                             console.log("Failed! date is Empty")
+                            toast.show("Date is Empty")
                         }
                     }else
                     {
                         console.log("Failed! amount is Empty")
+                        toast.show("Amount is Empty")
                     }
                 }else
                 {
                     console.log("Failed! Category is Empty")
+                    toast.show("Category is Empty")
                 }
 
             }

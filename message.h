@@ -5,6 +5,8 @@
 #include "categorymodel.h"
 #include "purchasemodel.h"
 #include "budgetmodel.h"
+#include "math.h"
+
 class Message : public QObject{
 
     Q_OBJECT
@@ -64,10 +66,17 @@ class Message : public QObject{
         void loadPurchases();
         void setBudget(double amount,QDate dateFrom,QDate dateTo);
         void removeBudget(int id);
-        //sort bud model
 
+
+
+        /**
+         * A method that finds the current amount of money available
+         * and manipulates it to show on the screen appropriately with 2 decimal
+         * @return current balance
+         */
         double curBalance(){
-            return _budgetModel->lastBal(_budgetModel->posoSize()-1).getAmount();
+            double t = _budgetModel->lastBal(_budgetModel->posoSize()-1).getAmount();
+            return ceil(t*100)/100;
         }
 
         QDate curDateFrom(){
@@ -82,10 +91,6 @@ class Message : public QObject{
         }
 
 };
-
-
-
-
 
 
 #endif // MESSAGE_H
