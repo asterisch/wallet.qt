@@ -60,27 +60,9 @@ void purchaseModel::insertPurchase(QString categ, double amount, QString note, Q
 
        Purchase c(0,categ,amount,note,date,ppl,paym,place,event);
        db->addPurchase(c);
-       /*
-       QSqlRecord record = query.record();
-       while (query.next())
-       {
-       for(int index = 0; index < record.count(); ++index) {
-               QString key = record.fieldName(index);
-               QVariant value = record.value(index);
-               qDebug() << key << "---" << value.toString();
-        }
-       }
-
-       long int lastid=db->getlastID();
-        c.setID(lastid);
-
+       long int lastID = db->getlastID();
+       c.setID(lastID);
        this->agores.push_back(c);
-
-       QVariant id = c.getID();
-       qDebug()<< id ;
-       */
-       //reload database because getlastID() doesn't work
-       loadPurchases(db);
     }
     endResetModel();
     qDebug("InsertPurchase called in Purchase Model\n");

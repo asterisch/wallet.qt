@@ -36,6 +36,7 @@ public:
     long int getlastID();
 private:
     QSqlDatabase database;
+    long int lastID;
 };
 
 #endif // DBMANAGER_H

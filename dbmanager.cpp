@@ -55,6 +55,12 @@ bool DbManager::addPurchase(Purchase p)
     queryAdd.bindValue(":event",p.getEvent());
     if(queryAdd.exec())
     {
+        QSqlQuery q("select MAX(id) from purchase");
+        QSqlRecord rec = q.record();
+        int nameCol = rec.indexOf("MAX(id)"); // index of the field "name"
+        q.next();
+        qDebug() << "lastID = "<< q.value(nameCol).toString();
+        lastID=q.value(nameCol).toInt();
         success = true;
         qDebug() << "true dat";
     }
@@ -109,17 +115,7 @@ bool DbManager::removePurchase(int id) const
 }
 long int DbManager::getlastID()
 {
-    QSqlQuery query("select Max(id) from purchase");
 
-    QSqlRecord record = query.record();
-    while (query.next())
-    {
-    for(int index = 0; index < record.count(); ++index) {
-            QString key = record.fieldName(index);
-            QVariant value = record.value(index);
-            qDebug() << key << "---" << value.toString();
-     }
-    }
-    return 99;
+    return lastID;
 }
 
