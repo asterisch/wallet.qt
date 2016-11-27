@@ -2,7 +2,7 @@
 #include <QtSql>
 #include "dbmanager.h"
 using namespace std;
-const QString path = "/sqlite3/rest.db";
+
 purchaseModel::purchaseModel()
 {
     this->vector_size=0;
