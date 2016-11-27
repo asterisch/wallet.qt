@@ -14,19 +14,16 @@ Message::Message(QObject *parent) : QObject(parent)
     QDate d2 =QDate::fromString(d22,"dd/MM/yyyy");
     setBudget(12.12,d1,d2);
     setBudget(12.12,d1,d2);
-    DbManager db(path);
-
-    if (db.isOpen())
+    db = new DbManager(path);
+    db->printAllPurchases();
+    loadPurchases();
+    /*if (db->isOpen())
     {
-        QSqlQuery q("delete from sqlite_sequence where name='purchase'");
-        db.printAllPurchases();
+        //QSqlQuery q("delete from sqlite_sequence where name='purchase'");
+
         qDebug() << "Loading purchases from db:";
-        QSqlQuery query("SELECT * FROM purchase");
-        while (query.next())
-        {
-            QString date=query.value(4).toString();
-            QDate *dt = new QDate(date.split("-")[0].toInt(),date.split("-")[1].toInt(),date.split("-")[2].toInt());
-            insertPurchase(true,query.value(1).toString(),query.value(2).toLongLong(),query.value(3).toString(),*dt,query.value(5).toString(),query.value(6).toString(),query.value(7).toString(),query.value(8).toString());
+
+            insertPurchase(true,query.value(1).toString(),query.value(2).toLongLong(),query.value(3).toString(),*dt,query.value(5).toString(),query.value(6).toString(),query.value(7).toString(),query.value(8).toString(),db);
         }
 
         qDebug() << "End";
@@ -34,7 +31,7 @@ Message::Message(QObject *parent) : QObject(parent)
     else
     {
         qDebug() << "Database is not open!";
-    }
+    }*/
 }
 
 void Message::insertCategory (QString name, QString imgPath)
@@ -44,18 +41,24 @@ void Message::insertCategory (QString name, QString imgPath)
     qDebug("InsertCategory called in Msg\n");
 }
 
-void Message::insertPurchase(bool isLoaded,QString categ,double amount, QString note, QDate date, QString ppl, QString paym, QString place, QString event)
+void Message::insertPurchase(QString categ,double amount, QString note, QDate date, QString ppl, QString paym, QString place, QString event)
 {
-    _purchaseModel->insertPurchase(false,categ,amount,note,date,ppl,paym,place,event);
+    _purchaseModel->insertPurchase(categ,amount,note,date,ppl,paym,place,event,db);
     emit purModelChanged();
     qDebug("InsertPurchase called in Msg\n");
 }
 
 void Message::removePurchase(int id)
 {
-    _purchaseModel->removePurchase(id);
+    _purchaseModel->removePurchase(id,db);
     emit purModelChanged();
     qDebug("Purchase deleted");
+}
+void Message::loadPurchases()
+{
+    _purchaseModel->loadPurchases(db);
+    emit purModelChanged();
+    qDebug("Loaded Database Success!!!!");
 }
 
 void Message::setBudget(double amount,QDate dateFrom,QDate dateTo)

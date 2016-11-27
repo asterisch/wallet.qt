@@ -51,56 +51,75 @@ QVariant purchaseModel::data(const QModelIndex &index, int role) const{
         return qv;
     }
 }
-void purchaseModel::insertPurchase(bool isLoaded,QString categ, double amount, QString note, QDate date,
-                                   QString ppl, QString paym, QString place, QString event)
+void purchaseModel::insertPurchase(QString categ, double amount, QString note, QDate date,
+                                   QString ppl, QString paym, QString place, QString event,DbManager *db)
 {
-    beginResetModel();
-    DbManager db(path);
-    if (db.isOpen())
+    beginResetModel();  
+    if (db->isOpen())
     {
-       QSqlQuery q;
-       int lastid= (int) q.exec("select last_insert_rowID()");
-       this->vector_size=++lastid;
-    }else return;
-    Purchase c(this->vector_size,categ,amount,note,date,ppl,paym,place,event);
-    this->agores.push_back(c);
-    this->vector_size++;
-    if(!isLoaded)
-    {
-        DbManager db(path);
 
-        if (db.isOpen())
-        {
-           db.addPurchase(c);
+       Purchase c(0,categ,amount,note,date,ppl,paym,place,event);
+       db->addPurchase(c);
+       /*
+       QSqlRecord record = query.record();
+       while (query.next())
+       {
+       for(int index = 0; index < record.count(); ++index) {
+               QString key = record.fieldName(index);
+               QVariant value = record.value(index);
+               qDebug() << key << "---" << value.toString();
         }
+       }
+       */
+       long int lastid=db->getlastID();
+        c.setID(lastid);
+
+       this->agores.push_back(c);
+
+       QVariant id = c.getID();
+       qDebug()<< id ;
+    }
     endResetModel();
     qDebug("InsertPurchase called in Purchase Model\n");
-    }
 }
 
-void purchaseModel::removePurchase(int id)
+void purchaseModel::removePurchase(int id,DbManager *db)
 {
     beginResetModel();
-    for(int j=0;j<agores.size();j++)
+    if (db->isOpen())
     {
-        Purchase p = this->agores.at(j);
-        if(p.getID()==id)
-        {
-            agores.erase(this->agores.begin()+j);
-            DbManager db(path);
-
-            if (db.isOpen())
-            {
-               db.removePurchase(id);
-            }
-            break;
-        }
-
+            Purchase p  ;
+         db->removePurchase(id);
+         for (int i=0;i<this->agores.size();i++)
+         {
+             p=this->agores.at(i);
+             if( p.getID() == id)
+             {
+                 this->agores.erase(this->agores.begin()+i);
+                 break;
+             }
+         }
     }
+
     endResetModel();
     qDebug("removePurchase called in PurchaseModel");
 }
-void purchaseModel::loadPurchases()
+void purchaseModel::loadPurchases(DbManager *db)
 {
+    if(db->isOpen())
+    {
+        qDebug("___________________________________________________________");
+        QSqlQuery query("SELECT * FROM purchase");
+        while (query.next())
+        {
+            QString date=query.value(4).toString();
+            QDate *dt = new QDate(date.split("-")[0].toInt(),date.split("-")[1].toInt(),date.split("-")[2].toInt());
+            Purchase c(query.value(0).toLongLong(),query.value(1).toString(),query.value(2).toDouble(),query.value(3).toString(),*dt,query.value(5).toString(),query.value(6).toString(),query.value(7).toString(),query.value(8).toString());
+
+            this->agores.push_back(c);
+            qDebug("___________________________________________________________");
+
+        }
+    }
 
 }

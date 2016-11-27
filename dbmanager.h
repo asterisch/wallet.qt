@@ -33,7 +33,7 @@ public:
     bool removePurchase(int id) const;
 
     void printAllPurchases() const;
-
+    long int getlastID();
 private:
     QSqlDatabase database;
 };

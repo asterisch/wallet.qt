@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <QObject>
 #include "purchase.h"
-
+#include "dbmanager.h"
 class purchaseModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -22,9 +22,9 @@ public:
     QHash<int, QByteArray> roleNames() const;
     int rowCount(const QModelIndex &parent = QModelIndex())const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    void insertPurchase(bool isLoaded,QString categ,double amount, QString note, QDate date,QString ppl, QString paym, QString place, QString event);
-    void removePurchase(int id);
-    void loadPurchases();
+    void insertPurchase(QString categ,double amount, QString note, QDate date,QString ppl, QString paym, QString place, QString event,DbManager *db);
+    void removePurchase(int id,DbManager *db);
+    void loadPurchases(DbManager *db);
     //QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 signals:
 
