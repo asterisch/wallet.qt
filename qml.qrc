@@ -79,7 +79,5 @@
         <file>dbmanager.cpp</file>
         <file>dbmanager.h</file>
         <file>EditBudget.qml</file>
-        <file>sqlinit.cpp</file>
-        <file>sqlinit.h</file>
     </qresource>
 </RCC>
