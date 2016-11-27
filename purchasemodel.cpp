@@ -70,7 +70,7 @@ void purchaseModel::insertPurchase(QString categ, double amount, QString note, Q
                qDebug() << key << "---" << value.toString();
         }
        }
-       */
+
        long int lastid=db->getlastID();
         c.setID(lastid);
 
@@ -78,6 +78,9 @@ void purchaseModel::insertPurchase(QString categ, double amount, QString note, Q
 
        QVariant id = c.getID();
        qDebug()<< id ;
+       */
+       //reload database because getlastID() doesn't work
+       loadPurchases(db);
     }
     endResetModel();
     qDebug("InsertPurchase called in Purchase Model\n");
@@ -108,7 +111,7 @@ void purchaseModel::loadPurchases(DbManager *db)
 {
     if(db->isOpen())
     {
-        qDebug("___________________________________________________________");
+        this->agores.clear();
         QSqlQuery query("SELECT * FROM purchase");
         while (query.next())
         {
@@ -117,8 +120,6 @@ void purchaseModel::loadPurchases(DbManager *db)
             Purchase c(query.value(0).toLongLong(),query.value(1).toString(),query.value(2).toDouble(),query.value(3).toString(),*dt,query.value(5).toString(),query.value(6).toString(),query.value(7).toString(),query.value(8).toString());
 
             this->agores.push_back(c);
-            qDebug("___________________________________________________________");
-
         }
     }
 
