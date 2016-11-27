@@ -44,7 +44,7 @@ bool DbManager::addPurchase(Purchase p)
     //queryAdd.exec(QLatin1String("insert into purchase (id,category,amount,note,date,people,payment,place,event) VALUES ()"));
     queryAdd.prepare(QLatin1String("INSERT INTO purchase( category, amount, note, date, people, payment, place, event)"
                                    "VALUES ( :category, :amount, :note, :date, :people, :payment, :place, :event)"));
-    //queryAdd.bindValue(":id", p.getID());
+
     queryAdd.bindValue(":category",p.getCategory());
     queryAdd.bindValue(":amount",p.getAmount());
     queryAdd.bindValue(":note",p.getNote());
@@ -55,6 +55,12 @@ bool DbManager::addPurchase(Purchase p)
     queryAdd.bindValue(":event",p.getEvent());
     if(queryAdd.exec())
     {
+        QSqlQuery q("select MAX(id) from purchase");
+        QSqlRecord rec = q.record();
+        int nameCol = rec.indexOf("MAX(id)"); // index of the field "name"
+        q.next();
+        qDebug() << "lastID = "<< q.value(nameCol).toString();
+        lastID=q.value(nameCol).toInt();
         success = true;
         qDebug() << "true dat";
     }
@@ -93,7 +99,7 @@ bool DbManager::removePurchase(int id) const
     bool exists = false;
 
     QSqlQuery checkQuery;
-    checkQuery.prepare("DELETE FROM purchase WHERE id = (:id)");
+    checkQuery.prepare(QLatin1String("DELETE FROM purchase WHERE id = (:id)"));
     checkQuery.bindValue(":id", id);
 
     if (checkQuery.exec())
@@ -106,5 +112,10 @@ bool DbManager::removePurchase(int id) const
     }
 
     return exists;
+}
+long int DbManager::getlastID()
+{
+
+    return lastID;
 }
 

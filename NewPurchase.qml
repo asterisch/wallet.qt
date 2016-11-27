@@ -70,7 +70,7 @@ Rectangle{
                                     myPurchase.people=peopletxt.text
                                     myPurchase.event=eventtxt.text
 
-                                    msg.insertPurchase(false,myPurchase.categ,myPurchase.amount,myPurchase.note,myPurchase.date,myPurchase.people,myPurchase.payment,myPurchase.place,myPurchase.event)
+                                    msg.insertPurchase(myPurchase.categ,myPurchase.amount,myPurchase.note,myPurchase.date,myPurchase.people,myPurchase.payment,myPurchase.place,myPurchase.event)
 
                                     console.log("--------------------------")
                                     console.log("succesfull add new Purchase")

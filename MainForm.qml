@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 
 Rectangle {
 
-    color: "green"
+    color: "blue"
 
     Component{
         id: mb
