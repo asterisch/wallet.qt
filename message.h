@@ -60,6 +60,8 @@ class Message : public QObject{
 
     public slots:
         void insertCategory (QString name, QString imgPath);
+        void loadCategory();
+        bool checkCategoryExistence(QString category);
         void test(){}
         void insertPurchase(QString categ,double amount, QString note, QDate date, QString ppl, QString paym, QString place, QString event);
         void removePurchase(int id);

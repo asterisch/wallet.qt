@@ -27,6 +27,10 @@ Rectangle{
         id: method
         PaymentMethod{}
     }
+    
+    ToastComponent{
+        id: toast
+    }
 
 
 

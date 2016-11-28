@@ -4,7 +4,6 @@
 #include <QSqlRecord>
 #include <QtSql>
 #include <QDebug>
-#include "purchase.h"
 
 DbManager::DbManager(const QString &path)
 {
@@ -36,6 +35,13 @@ bool DbManager::isOpen() const
     return database.isOpen();
 }
 
+
+/**
+ * This method takes as a param a Purchase p
+ * and adds that to the purchase table of the Database
+ * @param Purchase
+ * @return true if successfully added
+ */
 bool DbManager::addPurchase(Purchase p)
 {
     bool success = false;
@@ -71,7 +77,10 @@ bool DbManager::addPurchase(Purchase p)
 }
 
 
-
+/**
+ * A method that prints all the purchases on the log
+ * It is for debugging and testing reasons
+ */
 void DbManager::printAllPurchases() const
 {
     qDebug() << "Purchases in db:";
@@ -87,12 +96,16 @@ void DbManager::printAllPurchases() const
                 QVariant value = record.value(index);
                 qDebug() << key << "---" << value.toString();
          }
-
-        //QString name = query.value(idName).toString();
-       // qDebug() << "===" << query.record().field() ;//<< "===" << query.value(1).toString() << "===" << query.record().fieldName(4).toStdString();
     }
 }
 
+
+/**
+ * This method searches and deletes anentry on the purchase table of the Database
+ * The deletion is done by id which is given as a param
+ * @param int id
+ * @return false
+ */
 bool DbManager::removePurchase(int id) const
 {
     bool exists = false;
@@ -109,12 +122,80 @@ bool DbManager::removePurchase(int id) const
     {
         qDebug() << "purchase deletion failed: " << checkQuery.lastError();
     }
-
     return exists;
 }
+
+
+/**
+ * This method can be applied to a Database in order to get the id of the last entry
+ * @return long int
+ */
 long int DbManager::getlastID()
 {
-
     return lastID;
 }
 
+
+/**
+ * A method to update the database if a new category is created in a purchase
+ * The category is a static object, meaning it will still exist even if all tha purchases in it are removed
+ * If a category is created successfully to the database, return TRUE.
+ * @return success
+ */
+bool DbManager::addCategory(Category c){
+
+    bool success = false;
+    QSqlQuery queryAdd;
+    queryAdd.prepare(QLatin1String("INSERT INTO category(category,image)"
+                                   "VALUES ( :category,:image)"));
+
+    queryAdd.bindValue(":category",c.getName());
+    queryAdd.bindValue(":image",c.getImgPath());
+
+    if(queryAdd.exec()){
+        QSqlQuery q("select MAX(id) from category");
+        QSqlRecord rec = q.record();
+        int nameCol = rec.indexOf("MAX(id)");
+        q.next();
+        qDebug() << "category lastID = "<< q.value(nameCol).toString();
+        lastID = q.value(nameCol).toInt();
+        success = true;
+        qDebug() << "VERY TRUE";
+    }
+    else{
+        qDebug() << "add category failed" << queryAdd.lastError();
+    }
+
+    return success;
+}
+
+
+/**
+ * This method searches an entry on the category table of the Database
+ * The search is done by category name which is given as a param
+ * If the category exists returns true
+ * @param int category name
+ * @return false
+ */
+bool DbManager::checkCategoryExistence(QString category)
+{
+    bool existence =false;
+    QSqlQuery querySearch;
+    querySearch.prepare(QLatin1String("SELECT count(*) FROM category WHERE category = (:category)"));
+    querySearch.bindValue(":category",category);
+    if(querySearch.exec()){
+        QSqlRecord rec = querySearch.record();
+        int nameCol = rec.indexOf("count(*)");
+        querySearch.next();
+        qDebug() << "category  = "<< querySearch.value(nameCol).toString();
+        if(querySearch.value(nameCol).toString()!="0"){
+            existence = true;
+        }
+        //qDebug() << "VERY TRUE";
+    }
+    else{
+        qDebug() << "add category failed" << querySearch.lastError();
+    }
+    qDebug()<<existence;
+    return existence;
+}

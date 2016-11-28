@@ -89,6 +89,8 @@ void purchaseModel::removePurchase(int id,DbManager *db)
     endResetModel();
     qDebug("removePurchase called in PurchaseModel");
 }
+
+
 void purchaseModel::loadPurchases(DbManager *db)
 {
     if(db->isOpen())
@@ -100,9 +102,7 @@ void purchaseModel::loadPurchases(DbManager *db)
             QString date=query.value(4).toString();
             QDate *dt = new QDate(date.split("-")[0].toInt(),date.split("-")[1].toInt(),date.split("-")[2].toInt());
             Purchase c(query.value(0).toLongLong(),query.value(1).toString(),query.value(2).toDouble(),query.value(3).toString(),*dt,query.value(5).toString(),query.value(6).toString(),query.value(7).toString(),query.value(8).toString());
-
             this->agores.push_back(c);
         }
     }
-
 }

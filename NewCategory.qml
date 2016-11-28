@@ -49,8 +49,20 @@ Rectangle{
                 anchors.margins: 1
             }
             onClicked:{
-                msg.insertCategory(name.text,imgPath.source);
-                stack.pop();
+                if(name.text.trim()!=""){
+                    console.log("not empty");
+
+                    if(msg.checkCategoryExistence(name.text)){
+                        console.log("Category already exiss");
+                    }
+                    else{
+                        msg.insertCategory(name.text,imgPath.source);
+                        stack.pop();
+                    }
+                }
+                else{
+                    console.log("empty");
+                }
             }
         }
     }

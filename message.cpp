@@ -18,6 +18,7 @@ Message::Message(QObject *parent) : QObject(parent)
     db = new DbManager(path);
     db->printAllPurchases();
     loadPurchases();
+    loadCategory();
     /*if (db->isOpen())
     {
         //QSqlQuery q("delete from sqlite_sequence where name='purchase'");
@@ -37,9 +38,25 @@ Message::Message(QObject *parent) : QObject(parent)
 
 void Message::insertCategory (QString name, QString imgPath)
 {
-    _categoryModel->insertCategory(name,imgPath);
+    _categoryModel->insertCategory(name,imgPath,db);
     emit catModelChanged();
     qDebug("InsertCategory called in Msg\n");
+}
+
+void Message::loadCategory()
+{
+    _categoryModel->loadCategories(db);
+    emit catModelChanged();
+    qDebug("Loaded Category table Success!!!!");
+}
+
+bool Message::checkCategoryExistence(QString category)
+{
+    bool a =_categoryModel->checkCategoryExistence(category,db);
+    emit catModelChanged();
+    qDebug("Category existence checked");
+    qDebug()<< a;
+    return a;
 }
 
 void Message::insertPurchase(QString categ,double amount, QString note, QDate date, QString ppl, QString paym, QString place, QString event)

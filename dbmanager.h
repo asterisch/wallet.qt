@@ -4,6 +4,8 @@
 #include <QSqlDatabase>
 #include <QDate>
 #include "purchase.h"
+#include "category.h"
+
 /**
  * \class DbManager
  *
@@ -17,21 +19,19 @@
  * 3. cd sqlite3
  * 4. $ sqlite3 rest.db
  * 5. sqilte> create table purchase (id integer primary key, category text, amount real, note text, date text, people text, payment text, place text, event text);
- * 6. sqlite> .quit
+ * 6. sqlite> create table category (id integer primary key, category text, image BLOB);
+ * 7. sqlite> .quit
  */
 class DbManager
 {
 public:
-
     DbManager(const QString& path);
-
     ~DbManager();
-
     bool isOpen() const;
-
     bool addPurchase(Purchase c);
     bool removePurchase(int id) const;
-
+    bool addCategory(Category c);
+    bool checkCategoryExistence(QString category);
     void printAllPurchases() const;
     long int getlastID();
 private:

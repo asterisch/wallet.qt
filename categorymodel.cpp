@@ -1,35 +1,42 @@
 #include "categorymodel.h"
+#include "QtSql"
 
-
+/*
 CategoryModel::CategoryModel(QObject *parent){
-
     Category a("clothes","images/clothes.png");
     myData.push_back(a);
+}*/
 
+using namespace std;
+
+CategoryModel::CategoryModel(){
+    this->vector_size=0;
 }
 
 QHash<int, QByteArray> CategoryModel::roleNames() const{
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
     roles[imgPathRole] = "imgPath";
+    roles[IdRole] = "id";
     return roles;
 }
 
 int CategoryModel::rowCount(const QModelIndex &parent) const
 {
-    return myData.size();
+    return catigories.size();
 }
 
 QVariant CategoryModel::data(const QModelIndex &index, int role) const{
 
     int row = index.row();
-    if (myData.size()>row && row>=0)
+    if (catigories.size()>row && row>=0)
     {
-        Category i = myData[row];
+        Category i = catigories.at(row);
         switch (role)
         {
         case NameRole: return i.getName();
         case imgPathRole: return i.getImgPath();
+        case IdRole: return i.getID();
         default: return QVariant();
         }
     }
@@ -40,15 +47,48 @@ QVariant CategoryModel::data(const QModelIndex &index, int role) const{
     }
 }
 
-void CategoryModel::insertCategory(QString name, QString imgPath){
+void CategoryModel::insertCategory(QString category, QString imgPath,DbManager *db){
+
     beginResetModel();
-    Category c(name,imgPath);
-    this->myData.push_back(c);
+    if(db->isOpen()){
+        Category c(0,category,imgPath);
+        db->addCategory(c);
+        long int lastID = db->getlastID();
+        c.setID(lastID);
+        this->catigories.push_back(c);
+    }
     endResetModel();
-    qDebug("InsertCategory called in Category Model\n");
-    qDebug("Size of vector is now %d\n",myData.size());
+    qDebug("Insert Category called in Category Model \n");
 }
 
+
+void CategoryModel::loadCategories(DbManager *db){
+
+    if(db->isOpen()){
+        this->catigories.clear();
+        QSqlQuery query("SELECT * FROM category");
+        while(query.next()){
+            Category c(query.value(0).toLongLong(),query.value(1).toString(),query.value(2).toString());
+            this->catigories.push_back(c);
+        }
+    }
+}
+
+
+bool CategoryModel::checkCategoryExistence(QString category, DbManager *db){
+    if(db->isOpen()){
+        if(db->checkCategoryExistence(category)==true){
+            qDebug("CAT exist");
+            return true;
+        }
+    }
+    qDebug("CAT not exist");
+    return false;
+}
+
+
+
+/*
 QVariant CategoryModel::headerData(int section, Qt::Orientation orientation, int role) const{
 
     if (role != Qt::DisplayRole)
@@ -59,6 +99,7 @@ QVariant CategoryModel::headerData(int section, Qt::Orientation orientation, int
         {
             case NameRole: return "Name";
             case imgPathRole: return "ImagePath";
+        case IdRole: return "id";
             default: return QVariant();
         }
     }
@@ -85,4 +126,4 @@ vector<pair<Category *, double>> CategoryModel::convert(vector<QString> names, v
     qDebug("out of convert\n");
     return components;
 }
-
+*/
