@@ -78,5 +78,7 @@
         <file>dbmanager.cpp</file>
         <file>dbmanager.h</file>
         <file>EditBudget.qml</file>
+        <file>Toast.qml</file>
+        <file>ToastComponent.qml</file>
     </qresource>
 </RCC>
