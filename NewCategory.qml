@@ -6,6 +6,10 @@ import QtQuick.Dialogs 1.0
 Rectangle{
 
 
+    ToastComponent{
+        id: toast
+    }
+
 
     FileDialog{
         id: fileDialog
@@ -54,6 +58,7 @@ Rectangle{
 
                     if(msg.checkCategoryExistence(name.text)){
                         console.log("Category already exiss");
+                        toast.show("This Category already exists!",4000)
                     }
                     else{
                         msg.insertCategory(name.text,imgPath.source);
@@ -62,6 +67,7 @@ Rectangle{
                 }
                 else{
                     console.log("empty");
+                    toast.show("Category name is empty")
                 }
             }
         }
