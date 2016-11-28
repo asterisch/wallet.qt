@@ -6,7 +6,7 @@
 #include "message.h"
 #include "dbmanager.h"
 #include "purchasemodel.h"
-static QString path = "/myBase.db";
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
