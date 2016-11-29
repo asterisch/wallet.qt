@@ -62,10 +62,13 @@ Rectangle{
                 {
                     if (myPurchase.amount!=0.0)
                     {
-                        console.log(myPurchase.date.toISOString().split("T")[0])
-                        if (myPurchase.date.toISOString().split("T")[0]!=="2000-01-01")
+                        if (myPurchase.amount>0)
                         {
-                            if(myPurchase.amount <= msg.curBalance()){
+
+                            console.log(myPurchase.date.toISOString().split("T")[0])
+                            if (myPurchase.date.toISOString().split("T")[0]!=="2000-01-01")
+                            {
+                                if(myPurchase.amount <= msg.curBalance()){
                                     myPurchase.place=placetxt.text
                                     myPurchase.note=notetxt.text
                                     myPurchase.people=peopletxt.text
@@ -89,30 +92,34 @@ Rectangle{
                                     console.log("--------------------------")
                                     stack.pop();
                                     console.log("----------DONE-----------")
-                            }
-                            else{
-                                console.log("Failed! Amount greater than balance");
-                                toast.show("---ATTENTION---")
-                                toast.show("Amount GREATER than BALANCE",5000)
+                                }
+                                else{
+                                    console.log("Failed! Amount greater than balance");
+                                    toast.show("---ATTENTION---")
+                                    toast.show("Amount GREATER than BALANCE",5000)
+                                }
+                            }else
+                            {
+                                console.log("Failed! date is Empty")
+                                toast.show("Date is Empty")
                             }
                         }else
                         {
-                            console.log("Failed! date is Empty")
-                            toast.show("Date is Empty")
+                            console.log("Failed!amount is negative")
+                            toast.show("Amount is negative!")
                         }
-                    }else
-                    {
-                        console.log("Failed! amount is Empty")
-                        toast.show("Amount is Empty")
-                    }
+                        }else
+                        {
+                            console.log("Failed! amount is Empty")
+                            toast.show("Amount is Empty")
+                        }
+
                 }else
                 {
                     console.log("Failed! Category is Empty")
                     toast.show("Category is Empty")
                 }
-
             }
-
         }
     }
 
